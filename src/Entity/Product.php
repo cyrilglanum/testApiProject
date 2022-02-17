@@ -9,7 +9,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
- * @ApiResource(normalizationContext={"groups"={"read:collection"}})
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="product:list"}}},
+ *     itemOperations={"get"={"normalization_context"={"groups"="product:item"}}}
+ *     )
  */
 class Product
 {
@@ -17,56 +20,56 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @groups({"read:collection"})
+     * @groups({"product:list","product:item"})
      */
 
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $brand;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $width;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $large;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $weight;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
-     * @groups({"read:collection"})
+     * @groups({"product:list"})
      */
     private $category;
 
